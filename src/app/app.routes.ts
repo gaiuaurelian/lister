@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { listDataResolver } from './resolvers/list-data.resolver';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -13,5 +14,6 @@ export const routes: Routes = [
       import('./workspace/workspace.component').then(
         (m) => m.WorkspaceComponent
       ),
+    resolve: { listData: listDataResolver },
   },
 ];

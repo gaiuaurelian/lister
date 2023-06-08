@@ -11,6 +11,11 @@ export class ListsService {
     return this.lists.asObservable();
   }
 
+  fetch(name: string | null) {
+    if (!name) return null;
+    return this.lists.value.find((x) => x.name === name);
+  }
+
   create(list: List) {
     this.lists.next([...this.lists.value, list]);
   }

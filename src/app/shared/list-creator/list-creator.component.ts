@@ -72,7 +72,7 @@ export class ListCreator {
     if (this.dialogRef) {
       const newList: List = {
         title: this.createListForm.value.listName,
-        name: this.createListForm.value.listName + Math.random(),
+        name: this.createListForm.value.listName.replace(' ', '_') + Math.random(),
         items: [],
         type: this.type,
       };
