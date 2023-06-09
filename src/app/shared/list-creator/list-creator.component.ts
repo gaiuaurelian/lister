@@ -70,9 +70,12 @@ export class ListCreator {
 
   onSave() {
     if (this.dialogRef) {
+      const listNameFormValue = this.createListForm.value.listName;
+      const modifiedListName = listNameFormValue.replace(' ', '_');
+
       const newList: List = {
         title: this.createListForm.value.listName,
-        name: this.createListForm.value.listName.replace(' ', '_') + Math.random(),
+        name: modifiedListName + '_' + Math.floor(Math.random() * 9999) + 1,
         items: [],
         type: this.type,
       };

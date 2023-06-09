@@ -19,5 +19,7 @@ export class HomeComponent implements OnInit {
   creatorType: ListTypesEnum = ListTypesEnum.WORKSPACE;
   constructor(public lService: ListsService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.lService.fetchAll();
+  }
 }

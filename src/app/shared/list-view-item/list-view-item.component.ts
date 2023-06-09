@@ -37,10 +37,10 @@ export class BuildNavigationLinkPipe implements PipeTransform {
   imports: [RouterLink, NgIf, IsNavigationLinkPipe, BuildNavigationLinkPipe],
   template: ` <span *ngIf="list.type | isNavigationLink">
       <a [routerLink]="['/' + (list | buildNavigationLink)]">
-        {{ list.title }}
+        [{{ list.type.toString() }}] {{ list.title }}
       </a>
     </span>
-    <span *ngIf="!(list.type | isNavigationLink)">{{ list.title }}</span>
+    <span *ngIf="!(list.type | isNavigationLink)">[{{ list.type.toString() }}] {{ list.title }}</span>
     <button (click)="onRemove()">Remove</button>`,
 })
 export class ListViewItemComponent {
