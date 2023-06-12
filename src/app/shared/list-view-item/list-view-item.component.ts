@@ -5,6 +5,8 @@ import { ListsService } from 'src/app/services/lists.service';
 import { ListTypesEnum } from 'src/app/models/list-type.enum';
 import { RouterLink } from '@angular/router';
 import { isNavigationList as isNavigationListType } from 'src/app/utils/list.utils';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Pipe({
   name: 'isNavigationLink',
@@ -16,32 +18,31 @@ export class IsNavigationLinkPipe implements PipeTransform {
   }
 }
 
-@Pipe({
-  name: 'buildNavigationLink',
-  standalone: true,
-})
-export class BuildNavigationLinkPipe implements PipeTransform {
-  transform(value: List, ...args: any[]): any {
-    let navigationType = 'UNDEFINED_NAVIGATION_TYPE';
-    if (isNavigationListType(value.type)) {
-      navigationType = value.type.toLowerCase();
-    }
-
-    return `${navigationType}/${value.name}`;
-  }
-}
-
 @Component({
   selector: 'app-list-view-item',
   standalone: true,
-  imports: [RouterLink, NgIf, IsNavigationLinkPipe, BuildNavigationLinkPipe],
-  template: ` <span *ngIf="list.type | isNavigationLink">
-      <a [routerLink]="['/' + (list | buildNavigationLink)]">
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    RouterLink,
+    NgIf,
+    IsNavigationLinkPipe,
+  ],
+  template: `
+    <ng-container *ngIf="list">
+      <span *ngIf="list.type | isNavigationLink">
+        <a [routerLink]="['list/' + list.name]">
+          [{{ list.type.toString() }}] {{ list.title }}
+        </a>
+      </span>
+      <span *ngIf="!(list.type | isNavigationLink)">
         [{{ list.type.toString() }}] {{ list.title }}
-      </a>
-    </span>
-    <span *ngIf="!(list.type | isNavigationLink)">[{{ list.type.toString() }}] {{ list.title }}</span>
-    <button (click)="onRemove()">Remove</button>`,
+      </span>
+      <button color="primary" mat-icon-button (click)="onRemove()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </ng-container>
+  `,
 })
 export class ListViewItemComponent {
   @Input() list!: List;

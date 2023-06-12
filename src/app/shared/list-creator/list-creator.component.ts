@@ -1,12 +1,12 @@
+import { Component, Input, ViewChild } from '@angular/core';
 import {
-  Component,
-  Input,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import {
   FormControl,
   FormGroup,
@@ -21,27 +21,46 @@ import { ListTypesEnum } from 'src/app/models/list-type.enum';
 @Component({
   selector: 'app-list-creator',
   standalone: true,
-  imports: [DialogModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   template: `
-    <button (click)="onCreateNewList()">
+    <button mat-stroked-button color="primary" (click)="onCreateNewList()">
       <ng-content></ng-content>
     </button>
 
     <ng-template #createListFormTemplate>
-      <form [formGroup]="createListForm">
-        <input name="listNameControl" type="text" formControlName="listName" />
-      </form>
-      <div>
-        <button (click)="onSave()">Save</button>
-        <button (click)="onClose()">Close</button>
+      <h2 mat-dialog-title>Define a new workspace</h2>
+      <div mat-dialog-content>
+        <form [formGroup]="createListForm">
+          <mat-form-field appearance="outline">
+            <mat-label>List name</mat-label>
+            <input
+              matInput
+              name="listNameControl"
+              type="text"
+              formControlName="listName"
+            />
+          </mat-form-field>
+        </form>
+      </div>
+      <div mat-dialog-actions align="end">
+        <button mat-stroked-button color="primary" (click)="onClose()">Close</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Save</button>
       </div>
     </ng-template>
   `,
 })
 export class ListCreator {
-  private dialogRef: DialogRef<any, any> | null = null;
+  private dialogRef: MatDialogRef<any, any> | null = null;
 
   @Input() type!: ListTypesEnum;
+  @Input() parentListName: string | null = null;
   @ViewChild('createListFormTemplate') createListFormTemplate!: any;
 
   listNameFormControl = new FormControl<string>('', [Validators.required]);
@@ -50,16 +69,12 @@ export class ListCreator {
   });
 
   constructor(
-    private readonly dialog: Dialog,
+    private readonly dialog: MatDialog,
     private readonly lService: ListsService
   ) {}
 
   onCreateNewList() {
-    this.dialogRef = this.dialog.open(this.createListFormTemplate, {
-      height: '400px',
-      width: '600px',
-      panelClass: 'my-dialog',
-    });
+    this.dialogRef = this.dialog.open(this.createListFormTemplate);
   }
 
   onClose() {
@@ -72,14 +87,16 @@ export class ListCreator {
     if (this.dialogRef) {
       const listNameFormValue = this.createListForm.value.listName;
       const modifiedListName = listNameFormValue.replace(' ', '_');
+      const newListName =
+        modifiedListName + '_' + Math.floor(Math.random() * 9999) + 1;
 
       const newList: List = {
         title: this.createListForm.value.listName,
-        name: modifiedListName + '_' + Math.floor(Math.random() * 9999) + 1,
+        name: newListName,
         items: [],
         type: this.type,
       };
-      this.lService.create(newList);
+      this.lService.create(newList, this.parentListName);
       this.dialogRef.close();
       this.createListForm.reset();
     }
