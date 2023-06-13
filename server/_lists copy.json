@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Aurelian's first workspace",
+    "name": "Aurelian's_first workspace_66671",
+    "items": [
+      "Noutati_44911",
+      "Smart_choice_46151",
+      "Pui_94801",
+      "Burgers_& Wraps_88561",
+      "Meniuri_93711",
+      "Meniu_copii_59491",
+      "Boxes_5241",
+      "Buckets_38191",
+      "Salate_98371",
+      "Garnituri_30661",
+      "Sosuri_31341",
+      "Bauturi_53741",
+      "Deserturi_7351"
+    ],
+    "type": "WORKSPACE"
+  },
+  {
+    "title": "Aurelian's second workspace",
+    "name": "Aurelian's_second workspace_65291",
+    "items": [],
+    "type": "WORKSPACE"
+  },
+  { "title": "Noutati", "name": "Noutati_44911", "items": [], "type": "PAGE" },
+  {
+    "title": "Smart choice",
+    "name": "Smart_choice_46151",
+    "items": [],
+    "type": "PAGE"
+  },
+  { "title": "Pui", "name": "Pui_94801", "items": [], "type": "PAGE" },
+  {
+    "title": "Burgers & Wraps",
+    "name": "Burgers_& Wraps_88561",
+    "items": [],
+    "type": "PAGE"
+  },
+  { "title": "Meniuri", "name": "Meniuri_93711", "items": [], "type": "PAGE" },
+  {
+    "title": "Meniu copii",
+    "name": "Meniu_copii_59491",
+    "items": [],
+    "type": "PAGE"
+  },
+  { "title": "Boxes", "name": "Boxes_5241", "items": [], "type": "PAGE" },
+  { "title": "Buckets", "name": "Buckets_38191", "items": [], "type": "PAGE" },
+  { "title": "Salate", "name": "Salate_98371", "items": [], "type": "PAGE" },
+  {
+    "title": "Garnituri",
+    "name": "Garnituri_30661",
+    "items": [],
+    "type": "PAGE"
+  },
+  { "title": "Sosuri", "name": "Sosuri_31341", "items": [], "type": "PAGE" },
+  { "title": "Bauturi", "name": "Bauturi_53741", "items": [], "type": "PAGE" },
+  {
+    "title": "Deserturi",
+    "name": "Deserturi_7351",
+    "items": [],
+    "type": "PAGE"
+  }
+]
